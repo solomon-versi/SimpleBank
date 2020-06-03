@@ -2,7 +2,7 @@
 
 namespace SimpleBank.Core.Models
 {
-    public class Operation
+    public sealed class Operation
     {
         public long Id { get; set; }
         public byte Type { get; set; }

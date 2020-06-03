@@ -4,12 +4,12 @@ namespace SimpleBank.Core.Repositories.Abstractions
 {
     public interface ICustomerRepository
     {
-        public Customer GetCustomerById(int id);
+        Customer GetCustomerById(int id);
 
-        public int SaveCustomer(Customer customer);
+        int SaveCustomer(Customer customer);
 
-        public bool UpdateCustomer(Customer customer);
+        bool UpdateCustomer(Customer customer);
 
-        public bool DeleteCustomer(Customer customer);
+        bool DeleteCustomer(Customer customer);
     }
 }

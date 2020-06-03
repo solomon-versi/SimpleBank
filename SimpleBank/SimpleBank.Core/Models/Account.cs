@@ -1,7 +1,8 @@
 ﻿namespace SimpleBank.Core.Models
 {
-    public class Account
+    public sealed class Account
     {
+        public int Id { get; set; }
         public string Iban { get; set; }
         public string Currency { get; set; }
         public decimal Balance { get; set; }
