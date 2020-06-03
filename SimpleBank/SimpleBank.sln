@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBank.Core", "SimpleBank.Core\SimpleBank.Core.csproj", "{D714BD00-4C02-4B4F-AD5A-92FC155BDE5C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{57011728-0B55-43C5-BCD6-B5CDB3684BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBank.Core.Tests", "SimpleBank.Core.Tests\SimpleBank.Core.Tests.csproj", "{894BD372-CBEA-45E3-B322-293B6E38546A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{D714BD00-4C02-4B4F-AD5A-92FC155BDE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D714BD00-4C02-4B4F-AD5A-92FC155BDE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D714BD00-4C02-4B4F-AD5A-92FC155BDE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894BD372-CBEA-45E3-B322-293B6E38546A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894BD372-CBEA-45E3-B322-293B6E38546A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894BD372-CBEA-45E3-B322-293B6E38546A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894BD372-CBEA-45E3-B322-293B6E38546A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{894BD372-CBEA-45E3-B322-293B6E38546A} = {57011728-0B55-43C5-BCD6-B5CDB3684BF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE7C6443-59C4-40A8-B592-EEC01818F35E}
