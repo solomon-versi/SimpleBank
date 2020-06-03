@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Accounts.csv" />
+    <None Remove="Customers.csv" />
+    <None Remove="Operations.csv" />
+  </ItemGroup>
+
 </Project>
