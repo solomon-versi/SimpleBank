@@ -2,7 +2,7 @@
 
 namespace SimpleBank.Core.Repositories.Abstractions
 {
-    public interface ICustomerRepository
+    public interface ICustomersRepository
     {
         Customer GetCustomerById(int id);
 
@@ -10,6 +10,6 @@ namespace SimpleBank.Core.Repositories.Abstractions
 
         bool UpdateCustomer(Customer customer);
 
-        bool DeleteCustomer(Customer customer);
+        bool DeleteCustomer(int id);
     }
 }

@@ -3,7 +3,7 @@ using SimpleBank.Core.Models;
 
 namespace SimpleBank.Core.Repositories.Abstractions
 {
-    public interface IOperationRepository
+    public interface IOperationsRepository
     {
         Operation GetOperationById(long id);
 
