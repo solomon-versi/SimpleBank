@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Data.Repositories.Abstractions
 {
-    public interface IRepository<TObject, TId>
+    public interface IRepository<TObject, TId> where TObject : IDataObject<TId>
     {
         TObject GetById(TId id);
 
