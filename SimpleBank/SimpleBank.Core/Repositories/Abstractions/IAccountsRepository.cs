@@ -12,4 +12,4 @@ namespace SimpleBank.Core.Repositories.Abstractions
 
         bool DeleteAccount(int id);
     }
-}
+}  
