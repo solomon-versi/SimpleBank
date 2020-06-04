@@ -1,6 +1,6 @@
 ﻿using SimpleBank.Core.Models;
 
-namespace SimpleBank.Core.Repositories.Abstractions
+namespace SimpleBank.Core.Data.Repositories.Abstractions
 {
     public interface ICustomersRepository
     {

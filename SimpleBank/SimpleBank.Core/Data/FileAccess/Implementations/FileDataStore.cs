@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using SimpleBank.Core.Repositories.Abstractions;
+using SimpleBank.Core.Data.FileAccess.Abstractions;
 
-namespace SimpleBank.Core.Repositories.Implementations
+namespace SimpleBank.Core.Data.FileAccess.Implementations
 {
     public class FileDataStore : IDataWriter<string>, IDataReader<string>
     {

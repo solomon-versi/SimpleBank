@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using SimpleBank.Core.Data.FileAccess.Abstractions;
 using SimpleBank.Core.Models;
-using SimpleBank.Core.Repositories.Abstractions;
 
-namespace SimpleBank.Core.Repositories.Implementations
+namespace SimpleBank.Core.Data.Repositories.Implementations
 {
     public sealed class AccountsCsvRepository : GenericCsvRepository<Account, int>
     {

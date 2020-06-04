@@ -1,10 +1,11 @@
-﻿using SimpleBank.Core.Models.Abstractions;
-using SimpleBank.Core.Repositories.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleBank.Core.Data.FileAccess.Abstractions;
+using SimpleBank.Core.Data.Repositories.Abstractions;
+using SimpleBank.Core.Models.Abstractions;
 
-namespace SimpleBank.Core.Repositories.Implementations
+namespace SimpleBank.Core.Data.Repositories.Implementations
 {
     public abstract class GenericCsvRepository<TObject, TId> : IRepository<TObject, TId> where TObject : IDataObject<TId>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SimpleBank.Core.Repositories.Abstractions
+namespace SimpleBank.Core.Data.Repositories.Abstractions
 {
     public interface IRepository<TObject, TId>
     {
