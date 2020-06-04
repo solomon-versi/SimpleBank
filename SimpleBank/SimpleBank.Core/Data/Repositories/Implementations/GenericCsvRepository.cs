@@ -12,11 +12,13 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
         private readonly IDataReader<string> _dataReader;
         private readonly IDataWriter<string> _dataWriter;
         private readonly Dictionary<TId, TObject> _dataStore;
+        private readonly string _header;
 
         protected GenericCsvRepository(IDataReader<string> dataReader, IDataWriter<string> dataWriter)
         {
             _dataReader = dataReader;
             _dataWriter = dataWriter;
+            _header = _dataReader.Read().First();
             _dataStore = ReadData();
         }
 
@@ -67,6 +69,11 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
 
         protected abstract TObject ToObject(string s);
 
+        /// <summary>
+        /// Exclude obj.Id
+        /// </summary>
+        /// <param name="obj">object which is converted into csv</param>
+        /// <returns></returns>
         protected abstract string ToCsv(TObject obj);
 
         protected abstract TId GenerateNextId(TId lastId);
@@ -82,11 +89,11 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
                .Select(ToObject)
                .ToDictionary(a => a.Id);
 
-        private void SaveChanges()
-        {
-            var objectStrings = _dataStore.Select(pair => $"{pair.Key},{ToCsv(pair.Value)}");
-            _dataWriter.Write(objectStrings);
-        }
+        private void SaveChanges() =>
+            _dataWriter
+                .Write(_dataStore
+                    .Select(pair => $"{pair.Key},{ToCsv(pair.Value)}")
+                    .Prepend(_header));
 
         #endregion Private
     }
