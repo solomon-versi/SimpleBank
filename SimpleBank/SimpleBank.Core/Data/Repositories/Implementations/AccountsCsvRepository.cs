@@ -1,4 +1,4 @@
-﻿using SimpleBank.Core.Data.FileAccess.Abstractions;
+﻿using SimpleBank.Core.Data.FileAccess;
 using SimpleBank.Core.Models;
 
 namespace SimpleBank.Core.Data.Repositories.Implementations

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SimpleBank.Core.Data.FileAccess.Abstractions;
+using SimpleBank.Core.Data.FileAccess;
 using SimpleBank.Core.Data.Repositories.Abstractions;
 using SimpleBank.Core.Models.Abstractions;
 

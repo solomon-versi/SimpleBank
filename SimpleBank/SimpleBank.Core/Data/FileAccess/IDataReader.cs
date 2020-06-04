@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleBank.Core.Data.FileAccess.Abstractions
+namespace SimpleBank.Core.Data.FileAccess
 {
     public interface IDataReader<out T>
     {
