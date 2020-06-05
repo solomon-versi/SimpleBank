@@ -1,8 +1,9 @@
 ﻿using System;
+using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Models
 {
-    public sealed class Account : IEquatable<Account>
+    public sealed class Account : IDomainObject<int>, IEquatable<Account>
     {
         public Account(int id)
         {

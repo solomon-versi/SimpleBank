@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Models
 {
-    public sealed class Customer : IEquatable<Customer>
+    public sealed class Customer : IDomainObject<int>, IEquatable<Customer>
     {
         public Customer(int id)
         {
