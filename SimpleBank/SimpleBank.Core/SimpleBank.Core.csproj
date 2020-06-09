@@ -13,5 +13,4 @@
     <None Remove="Customers.csv" />
     <None Remove="Operations.csv" />
   </ItemGroup>
-
 </Project>

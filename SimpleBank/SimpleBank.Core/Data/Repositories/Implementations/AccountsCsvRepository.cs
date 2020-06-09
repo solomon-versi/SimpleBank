@@ -24,7 +24,7 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
             var account = new Account(int.Parse(data[idx++]))
             {
                 Iban = data[idx++],
-                Balance = new Money(data[idx++], decimal.Parse(data[idx++])),
+                Balance = new Money(Enum.Parse<CurrencyCode>(data[idx++]), decimal.Parse(data[idx++])),
                 CustomerId = int.Parse(data[idx++]),
                 Name = data[idx],
             };

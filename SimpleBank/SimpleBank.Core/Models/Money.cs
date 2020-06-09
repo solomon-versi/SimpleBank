@@ -20,10 +20,10 @@ namespace SimpleBank.Core.Models
             return HashCode.Combine(Currency, Amount);
         }
 
-        public readonly string Currency;
+        public readonly CurrencyCode Currency;
         public readonly decimal Amount;
 
-        public Money(string currency, decimal amount)
+        public Money(CurrencyCode currency, decimal amount)
         {
             Currency = currency;
             Amount = amount;

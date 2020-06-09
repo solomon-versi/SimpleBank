@@ -30,7 +30,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(1)
             {
                 Iban = "GE62TB9291655661344791",
-                Balance = new Money("USD", 6712m),
+                Balance = new Money(CurrencyCode.USD, 6712m),
                 CustomerId = 5,
                 Name = null
             };
@@ -50,7 +50,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(2)
             {
                 Iban = "GE40TB2971676721474477",
-                Balance = new Money("GEL", 2485m),
+                Balance = new Money(CurrencyCode.GEL, 2485m),
                 CustomerId = 6,
                 Name = "My Account"
             };
@@ -70,7 +70,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(1)
             {
                 Iban = "GE40TB2971676721474477",
-                Balance = new Money("GEL", 2485m),
+                Balance = new Money(CurrencyCode.GEL, 2485m),
                 CustomerId = 6,
                 Name = "My Account"
             };
@@ -78,7 +78,7 @@ namespace SimpleBank.Core.Tests.Tests
             var account = _repo.GetById(1);
 
             account.Iban = "GE40TB2971676721474477";
-            account.Balance = new Money("GEL", 2485m);
+            account.Balance = new Money(CurrencyCode.GEL, 2485m);
             account.CustomerId = 6;
             account.Name = "My Account";
 
@@ -114,7 +114,7 @@ namespace SimpleBank.Core.Tests.Tests
                 new Account(1)
                 {
                     Iban = "GE62TB9291655661344791",
-                    Balance =new Money("USD", 6712m) ,
+                    Balance =new Money(CurrencyCode.USD, 6712m) ,
                     CustomerId = 5,
                     Name = null
                 },
@@ -122,7 +122,7 @@ namespace SimpleBank.Core.Tests.Tests
                 new Account(2)
                 {
                     Iban = "GE40TB2971676721474477",
-                    Balance =new Money("GEL", 2485m) ,
+                    Balance =new Money(CurrencyCode.USD, 2485m) ,
                     CustomerId = 6,
                     Name = "My Account"
                 }

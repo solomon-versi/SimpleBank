@@ -13,7 +13,7 @@ namespace SimpleBank.Core.Utils
             Rates = currencyRate;
         }
 
-        public static Money Exchange(decimal amount, string from, string to)
+        public static Money Exchange(decimal amount, CurrencyCode from, CurrencyCode to)
         {
             var currency = $"{from}:{to}";
             if (!Rates.TryGetValue(currency, out var rate))

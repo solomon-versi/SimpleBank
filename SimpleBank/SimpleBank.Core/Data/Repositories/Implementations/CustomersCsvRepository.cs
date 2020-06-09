@@ -1,4 +1,5 @@
-﻿using SimpleBank.Core.Data.DataAccess;
+﻿using System.Net.Mail;
+using SimpleBank.Core.Data.DataAccess;
 using SimpleBank.Core.Data.Repositories.Abstractions;
 using SimpleBank.Core.Models;
 
@@ -24,8 +25,8 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
                 Name = data[idx++],
                 IdentityNumber = data[idx++],
                 PhoneNumber = data[idx++],
-                Email = data[idx++],
-                Type = byte.Parse(data[idx])
+                Email = new MailAddress(data[idx++]),
+                Type = (CustomerType)byte.Parse(data[idx])
             };
         }
 

@@ -18,12 +18,12 @@ namespace SimpleBank.Core.Tests.Tests
                 ["USD:GEL"] = 2.00m,
             });
 
-            var gel = new Money("GEL", 10);
-            var usd = new Money("USD", 10);
+            var gel = new Money(CurrencyCode.GEL, 10);
+            var usd = new Money(CurrencyCode.USD, 10);
 
             var total = gel + usd;
             Assert.Equal(10m + 10m * 2, total.Amount);
-            Assert.Equal("GEL", total.Currency);
+            Assert.Equal(CurrencyCode.GEL, total.Currency);
         }
 
         [Fact]
@@ -35,19 +35,19 @@ namespace SimpleBank.Core.Tests.Tests
                 ["USD:GEL"] = 2.00m,
             });
 
-            var gel = new Money("GEL", 10);
-            var usd = new Money("USD", 10);
+            var gel = new Money(CurrencyCode.GEL, 10);
+            var usd = new Money(CurrencyCode.USD, 10);
 
             var total = gel - usd;
             Assert.Equal(10m - 10m * 2, total.Amount);
-            Assert.Equal("GEL", total.Currency);
+            Assert.Equal(CurrencyCode.GEL, total.Currency);
         }
 
         [Fact]
         public void GenerateSameHashCodeForSameValues()
         {
-            var gel1 = new Money("GEL", 10);
-            var gel2 = new Money("GEL", 10);
+            var gel1 = new Money(CurrencyCode.GEL, 10);
+            var gel2 = new Money(CurrencyCode.GEL, 10);
 
             Assert.Equal(gel1.GetHashCode(), gel2.GetHashCode());
         }
@@ -55,9 +55,9 @@ namespace SimpleBank.Core.Tests.Tests
         [Fact]
         public void GenerateDifferentHashCodeForDifferentValues()
         {
-            var gel1 = new Money("GEL", 20);
-            var gel2 = new Money("GEL", 10);
-            var usd = new Money("USD", 10);
+            var gel1 = new Money(CurrencyCode.GEL, 20);
+            var gel2 = new Money(CurrencyCode.GEL, 10);
+            var usd = new Money(CurrencyCode.USD, 10);
 
             Assert.NotEqual(gel1.GetHashCode(), gel2.GetHashCode());
             Assert.NotEqual(gel2.GetHashCode(), usd.GetHashCode());
