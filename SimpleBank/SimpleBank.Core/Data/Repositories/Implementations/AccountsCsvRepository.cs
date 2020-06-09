@@ -24,8 +24,7 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
             var account = new Account(int.Parse(data[idx++]))
             {
                 Iban = data[idx++],
-                Currency = data[idx++],
-                Balance = decimal.Parse(data[idx++]),
+                Balance = new Money(data[idx++], decimal.Parse(data[idx++])),
                 CustomerId = int.Parse(data[idx++]),
                 Name = data[idx],
             };
@@ -37,6 +36,6 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
         }
 
         protected override string ToCsv(Account account) =>
-            $"{account.Iban},{account.Currency},{account.Balance},{account.CustomerId},{account.Name ?? string.Empty}";
+            $"{account.Iban},{account.Balance.Currency},{account.Balance.Amount},{account.CustomerId},{account.Name ?? string.Empty}";
     }
 }

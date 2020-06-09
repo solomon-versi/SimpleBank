@@ -30,8 +30,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(1)
             {
                 Iban = "GE62TB9291655661344791",
-                Currency = "USD",
-                Balance = 6712m,
+                Balance = new Money("USD", 6712m),
                 CustomerId = 5,
                 Name = null
             };
@@ -40,7 +39,6 @@ namespace SimpleBank.Core.Tests.Tests
 
             Assert.Equal(expected.Id, actual.Id);
             Assert.Equal(expected.Iban, actual.Iban);
-            Assert.Equal(expected.Currency, actual.Currency);
             Assert.Equal(expected.Balance, actual.Balance);
             Assert.Equal(expected.CustomerId, actual.CustomerId);
             Assert.Equal(expected.Name, actual.Name);
@@ -52,8 +50,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(2)
             {
                 Iban = "GE40TB2971676721474477",
-                Currency = "GEL",
-                Balance = 2485m,
+                Balance = new Money("GEL", 2485m),
                 CustomerId = 6,
                 Name = "My Account"
             };
@@ -62,7 +59,6 @@ namespace SimpleBank.Core.Tests.Tests
 
             Assert.Equal(expected.Id, actual.Id);
             Assert.Equal(expected.Iban, actual.Iban);
-            Assert.Equal(expected.Currency, actual.Currency);
             Assert.Equal(expected.Balance, actual.Balance);
             Assert.Equal(expected.CustomerId, actual.CustomerId);
             Assert.Equal(expected.Name, actual.Name);
@@ -74,8 +70,7 @@ namespace SimpleBank.Core.Tests.Tests
             var expected = new Account(1)
             {
                 Iban = "GE40TB2971676721474477",
-                Currency = "GEL",
-                Balance = 2485m,
+                Balance = new Money("GEL", 2485m),
                 CustomerId = 6,
                 Name = "My Account"
             };
@@ -83,8 +78,7 @@ namespace SimpleBank.Core.Tests.Tests
             var account = _repo.GetById(1);
 
             account.Iban = "GE40TB2971676721474477";
-            account.Currency = "GEL";
-            account.Balance = 2485m;
+            account.Balance = new Money("GEL", 2485m);
             account.CustomerId = 6;
             account.Name = "My Account";
 
@@ -93,7 +87,6 @@ namespace SimpleBank.Core.Tests.Tests
 
             Assert.Equal(expected.Id, actual.Id);
             Assert.Equal(expected.Iban, actual.Iban);
-            Assert.Equal(expected.Currency, actual.Currency);
             Assert.Equal(expected.Balance, actual.Balance);
             Assert.Equal(expected.CustomerId, actual.CustomerId);
             Assert.Equal(expected.Name, actual.Name);
@@ -121,8 +114,7 @@ namespace SimpleBank.Core.Tests.Tests
                 new Account(1)
                 {
                     Iban = "GE62TB9291655661344791",
-                    Currency = "USD",
-                    Balance = 6712m,
+                    Balance =new Money("USD", 6712m) ,
                     CustomerId = 5,
                     Name = null
                 },
@@ -130,8 +122,7 @@ namespace SimpleBank.Core.Tests.Tests
                 new Account(2)
                 {
                     Iban = "GE40TB2971676721474477",
-                    Currency = "GEL",
-                    Balance = 2485m,
+                    Balance =new Money("GEL", 2485m) ,
                     CustomerId = 6,
                     Name = "My Account"
                 }
@@ -142,7 +133,6 @@ namespace SimpleBank.Core.Tests.Tests
             var comparer = new GenericEqualityComparer<Account>((e, a) =>
                         e.Id == a.Id
                      && e.Iban == a.Iban
-                     && e.Currency == a.Currency
                      && e.Balance == a.Balance
                      && e.CustomerId == a.CustomerId
                      && e.Name == a.Name);
