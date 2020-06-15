@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
 using SimpleBank.Core.Models.Abstractions;
+using SimpleBank.Core.Services;
 
 namespace SimpleBank.Core.Models
 {
@@ -12,12 +13,13 @@ namespace SimpleBank.Core.Models
         }
 
         public long Id { get; }
-        public byte Type { get; set; }
-        public string Currency { get; set; }
+        public OperationType Type { get; set; }
+        public CurrencyCode Currency { get; set; }
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
         public int CustomerId { get; set; }
         public DateTime HappenedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public bool Equals(Operation other)
         {

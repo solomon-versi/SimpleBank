@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic.CompilerServices;
 using SimpleBank.Core.Utils;
 
 namespace SimpleBank.Core.Models
@@ -35,6 +36,38 @@ namespace SimpleBank.Core.Models
             return new Money(left.Currency, left.Amount + convertedRight.Amount);
         }
 
+        public static bool operator <(Money left, Money right)
+        {
+            if (left.Currency == right.Currency)
+                return left.Amount < right.Amount;
+            else
+                return left.Amount < Fx.Exchange(right.Amount, right.Currency, left.Currency).Amount;
+        }
+
+        public static bool operator >(Money left, Money right)
+        {
+            if (left.Currency == right.Currency)
+                return left.Amount > right.Amount;
+            else
+                return left.Amount > Fx.Exchange(right.Amount, right.Currency, left.Currency).Amount;
+        }
+
+        public static bool operator <=(Money left, Money right)
+        {
+            if (left.Currency == right.Currency)
+                return left.Amount <= right.Amount;
+            else
+                return left.Amount <= Fx.Exchange(right.Amount, right.Currency, left.Currency).Amount;
+        }
+
+        public static bool operator >=(Money left, Money right)
+        {
+            if (left.Currency == right.Currency)
+                return left.Amount >= right.Amount;
+            else
+                return left.Amount >= Fx.Exchange(right.Amount, right.Currency, left.Currency).Amount;
+        }
+
         public static Money operator -(Money left, Money right)
         {
             var convertedRight = Fx.Exchange(right.Amount, right.Currency, left.Currency);
@@ -46,7 +79,6 @@ namespace SimpleBank.Core.Models
         public static bool operator ==(Money left, Money right) =>
             left.Amount == right.Amount && left.Currency == right.Currency;
 
-        public static bool operator !=(Money left, Money right) =>
-            left.Amount != right.Amount || left.Currency != right.Currency;
+        public static bool operator !=(Money left, Money right) => !(left == right);
     }
 }
