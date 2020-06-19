@@ -69,28 +69,6 @@ namespace SimpleBank.Core.Services
             });
         }
 
-        public List<(Account account, List<Operation> operations)> GetAccountsWithOperationsByCustomerId(int customerId) =>
-            _accountRepo
-                .Query(a => a.CustomerId == customerId)
-                .Select(account => (account, _operationRepo
-                    .Query(o => o.AccountId == account.Id)
-                    .ToList()))
-                .ToList();
-
-        public List<(Operation operation, Account account)> OperationsByDate(DateTime operationDate)
-        {
-            var operations = _operationRepo.Query(o => o.HappenedAt == operationDate).ToList();
-            var accountIds = operations.Select(o => o.AccountId).ToList();
-            var accounts = _accountRepo.Query(a => accountIds.Contains(a.Id));
-
-            return operations
-                  .Join(accounts,
-                      o => o.AccountId,
-                      a => a.Id,
-                      (operation, account) => (operation, account))
-                  .ToList();
-        }
-
         /// <summary>
         /// ანგარიშზე თანხის ჩარიხვის ოპერაცია
         /// </summary>
