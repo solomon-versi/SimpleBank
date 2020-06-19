@@ -32,7 +32,7 @@ namespace SimpleBank.Core.Data.Repositories.Implementations
 
         public TId Add(TObject entity)
         {
-            var lastId = _data.Keys.Max();
+            var lastId = _data.Any() ? _data.Keys.Max() : default;
             var newId = GenerateNewId(lastId);
             _data[newId] = entity;
 

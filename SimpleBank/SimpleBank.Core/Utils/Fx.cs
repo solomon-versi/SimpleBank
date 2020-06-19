@@ -17,7 +17,7 @@ namespace SimpleBank.Core.Utils
         {
             var currency = $"{from}:{to}";
             if (!Rates.TryGetValue(currency, out var rate))
-                throw new Exception("Not Found");
+                throw new Exception("Not Found"); // TODO კონკრეტული exception
 
             return new Money(to, amount * rate);
         }

@@ -26,6 +26,11 @@ namespace SimpleBank.Core.Models
 
         public static implicit operator Iban(string value) => new Iban(value);
 
+        public override string ToString()
+        {
+            return Value;
+        }
+
         private static void Validate(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
