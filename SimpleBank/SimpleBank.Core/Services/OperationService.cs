@@ -1,30 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SimpleBank.Core.Commands;
 using SimpleBank.Core.Data.Repositories.Abstractions;
 using SimpleBank.Core.Exceptions;
 using SimpleBank.Core.Models;
+using System;
+using SimpleBank.Core.Utils;
 
 namespace SimpleBank.Core.Services
 {
-    public class OperationCommand
-    {
-        public int AccountId { get; set; }
-        public decimal Amount { get; set; }
-        public CurrencyCode Currency { get; set; }
-        public DateTime HappenedAt { get; set; }
-    }
-
-    public class DebitByAccountId : OperationCommand
-    {
-    }
-
-    public class CreditByAccountId : OperationCommand
-    {
-    }
-
-    public class OperationService
+    public class OperationService : IOperationService
     {
         private readonly IRepository<Account, int> _accountRepo;
         private readonly IRepository<Operation, long> _operationRepo;
@@ -76,23 +59,5 @@ namespace SimpleBank.Core.Services
         {
             throw new NotImplementedException("თქვენ თვითონ დაწერეთ!!! :)");
         }
-    }
-
-    public interface IDateTimeProvider
-    {
-        public DateTime Now { get; }
-        public DateTime UtcNow { get; }
-    }
-
-    public class DateTimeProvider : IDateTimeProvider
-    {
-        public DateTime Now => DateTime.Now;
-        public DateTime UtcNow => DateTime.UtcNow;
-    }
-
-    public enum OperationType : byte
-    {
-        Debit = 1,
-        Credit = 2,
     }
 }
