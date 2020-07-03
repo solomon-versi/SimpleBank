@@ -24,10 +24,10 @@ namespace SimpleBank.ConsoleApp
             string operationsDataConnectionString =
                 @"C:\Users\DavitMargvelashvili\Desktop\SimpleBank\SimpleBank\SimpleBank.Core\Operations.csv";
 
-            Fx.Initialize(new Dictionary<string, decimal>
+            Fx.Initialize(new Dictionary<string, CurrencyRate>
             {
-                ["GEL:USD"] = 0.50m,
-                ["USD:GEL"] = 2.00m,
+                ["GEL:USD"] = new CurrencyRate(CurrencyCode.GEL, CurrencyCode.USD, 0.50m),
+                ["USD:GEL"] = new CurrencyRate(CurrencyCode.USD, CurrencyCode.GEL, 2.00m),
             });
 
             Injector.Default

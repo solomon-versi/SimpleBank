@@ -7,6 +7,8 @@ using SimpleBank.Core.Commands;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Services;
 using SimpleBank.Core.Utils;
+using SimpleBank.Data;
+using Entity = SimpleBank.Data.Models;
 
 namespace SimpleBank.ConsoleApp
 {
@@ -26,6 +28,16 @@ namespace SimpleBank.ConsoleApp
                 Console.WriteLine("For Debit Operation enter - [d]");
                 Console.WriteLine("For Credit Operation enter - [c]");
                 var command = Console.ReadLine();
+
+                var dbContext = new SimpleBankDbContext();
+                dbContext.Customers.Add(new Entity.Customer
+                {
+                    Name = "დავით მარგველაშვილი",
+                    Type = CustomerType.Individual,
+                    IdentityNumber = "01009052245",
+                    Email = "Davit@gmail.com",
+                    PhoneNumber = "+995557117844"
+                });
 
                 switch (CreateCommand(command))
                 {

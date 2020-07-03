@@ -12,10 +12,10 @@ namespace SimpleBank.Core.Tests.Tests
         [Fact]
         public void ConvertOneCurrencyIntoAnotherWhenAdded()
         {
-            Fx.Initialize(new Dictionary<string, decimal>
+            Fx.Initialize(new Dictionary<string, CurrencyRate>
             {
-                ["GEL:USD"] = 0.50m,
-                ["USD:GEL"] = 2.00m,
+                ["GEL:USD"] = new CurrencyRate(CurrencyCode.GEL, CurrencyCode.USD, 0.50m),
+                ["USD:GEL"] = new CurrencyRate(CurrencyCode.USD, CurrencyCode.GEL, 2.00m),
             });
 
             var gel = new Money(CurrencyCode.GEL, 10);
@@ -29,10 +29,10 @@ namespace SimpleBank.Core.Tests.Tests
         [Fact]
         public void ConvertOneCurrencyIntoAnotherWhenSubtracted()
         {
-            Fx.Initialize(new Dictionary<string, decimal>
+            Fx.Initialize(new Dictionary<string, CurrencyRate>
             {
-                ["GEL:USD"] = 0.50m,
-                ["USD:GEL"] = 2.00m,
+                ["GEL:USD"] = new CurrencyRate(CurrencyCode.GEL, CurrencyCode.USD, 0.50m),
+                ["USD:GEL"] = new CurrencyRate(CurrencyCode.USD, CurrencyCode.GEL, 2.00m),
             });
 
             var gel = new Money(CurrencyCode.GEL, 10);
