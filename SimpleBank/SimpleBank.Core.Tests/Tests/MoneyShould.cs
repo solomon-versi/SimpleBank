@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Utils;
+using SimpleBank.Data;
 using Xunit;
 
 namespace SimpleBank.Core.Tests.Tests

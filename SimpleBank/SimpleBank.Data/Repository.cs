@@ -1,36 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SimpleBank.Core.Data.Repositories.Abstractions;
-using SimpleBank.Core.Models;
+﻿using SimpleBank.Core.Data.Repositories.Abstractions;
+using SimpleBank.Data.Models;
+using System;
+using Account = SimpleBank.Core.Models.Account;
+using Customer = SimpleBank.Core.Models.Customer;
+using Operation = SimpleBank.Core.Models.Operation;
 
 namespace SimpleBank.Data
 {
     public class AccountsRepository : IRepository<Account, int>
     {
+        private readonly SimpleBankDbContext _dbContext;
+
+        public AccountsRepository()
+        {
+            _dbContext = new SimpleBankDbContext();
+        }
+
         public Account GetById(int id)
         {
-            throw new NotImplementedException();
+            var account = _dbContext.Accounts.Find(id);
+            return account?.ToAccountModel();
         }
 
         public int Add(Account entity)
         {
-            throw new NotImplementedException();
+            var account = entity.ToAccountEntity();
+            var result = _dbContext.Accounts.Add(account);
+            _dbContext.SaveChanges();
+            return result.Entity.Id;
         }
 
         public bool Update(Account entity)
         {
-            throw new NotImplementedException();
+            var account = entity.ToAccountEntity();
+            _dbContext.Accounts.Update(account);
+            return _dbContext.SaveChanges() != 0;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Account> Query(Func<Account, bool> @where)
-        {
-            throw new NotImplementedException();
+            var account = _dbContext.Accounts.Find(id);
+            _dbContext.Accounts.Remove(account);
+            return _dbContext.SaveChanges() != 0;
         }
     }
 
@@ -55,11 +66,6 @@ namespace SimpleBank.Data
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<Operation> Query(Func<Operation, bool> @where)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class CustomerRepository : IRepository<Customer, int>
@@ -80,11 +86,6 @@ namespace SimpleBank.Data
         }
 
         public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Customer> Query(Func<Customer, bool> @where)
         {
             throw new NotImplementedException();
         }

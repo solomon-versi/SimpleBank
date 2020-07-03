@@ -14,7 +14,5 @@ namespace SimpleBank.Core.Data.Repositories.Abstractions
         bool Update(TObject entity);
 
         bool Delete(TId id);
-
-        IEnumerable<TObject> Query(Func<TObject, bool> where);
     }
 }

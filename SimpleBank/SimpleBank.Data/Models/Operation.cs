@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SimpleBank.Core.Models;
 
 namespace SimpleBank.Data.Models
@@ -13,5 +14,8 @@ namespace SimpleBank.Data.Models
         public int CustomerId { get; set; }
         public DateTime HappenedAt { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public Customer Customer { get; set; }
+        public Account Account { get; set; }
     }
 }
