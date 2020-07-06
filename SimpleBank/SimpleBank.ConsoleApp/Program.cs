@@ -1,15 +1,17 @@
-﻿using AutoMapper;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SimpleBank.Core.Data.Repositories.Abstractions;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Services;
 using SimpleBank.Core.Utils;
 using SimpleBank.Data;
 using System.Collections.Generic;
-using Unity;
+using AutoMapper;
+using SimpleBank.Data.Maps;
 
 namespace SimpleBank.ConsoleApp
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -19,31 +21,19 @@ namespace SimpleBank.ConsoleApp
                 ["USD:GEL"] = new CurrencyRate(CurrencyCode.USD, CurrencyCode.GEL, 2.00m),
             });
 
-            var mapperProfile = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Data.Models.Account, Account>()
-                    .ForMember(dest => dest.Balance,
-                        opt => opt.MapFrom(src => new Money(src.Currency, src.Balance)));
-
-                cfg.CreateMap<Account, Data.Models.Account>()
-                    .ForMember(dest => dest.Balance,
-                        opt => opt.MapFrom(src => src.Balance.Amount))
-                    .ForMember(dest => dest.Currency,
-                        opt => opt.MapFrom(src => src.Balance.Currency));
-            });
-
-            var mapper = mapperProfile.CreateMapper();
-
-            new UnityContainer()
-                   .RegisterType<Application>()
-                   //.RegisterType<IOperationService, OperationService>()
-                   .RegisterSingleton<SimpleBankDbContext>()
-                   .RegisterInstance(mapper)
-                   .RegisterType<AccountService>()
-                   .RegisterType<IRepository<Account, int>, AccountsRepository>()
-                   .RegisterType<IDateTimeProvider, DateTimeProvider>()
-                   .Resolve<Application>()
-                   .Run();
+            CreateHostBuilder(args).Build().Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) => Host
+                .CreateDefaultBuilder(args)
+                .ConfigureServices(services => services.AddHostedService<Application>()
+                    .AddScoped<IOperationService, OperationService>()
+                    .AddSingleton<SimpleBankDbContext>()
+                    .AddScoped<AccountService>()
+                    .AddScoped<IRepository<Account, int>, AccountRepository>()
+                    .AddScoped<IRepository<Operation, long>, OperationRepository>()
+                    .AddScoped<IRepository<Customer, int>, CustomerRepositoy>()
+                    .AddSingleton<IDateTimeProvider, DateTimeProvider>()
+                    .AddAutoMapper(typeof(MappingProfile)));
     }
 }

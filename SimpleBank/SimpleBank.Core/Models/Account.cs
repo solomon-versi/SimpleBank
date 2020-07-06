@@ -4,7 +4,7 @@ using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Models
 {
-    public sealed class Account : IDomainObject<int>, IEquatable<Account>
+    public sealed class Account : IDomainObject<int>
     {
         public Account(int id)
         {
@@ -18,20 +18,5 @@ namespace SimpleBank.Core.Models
         public Money Balance { get; set; }
         public int CustomerId { get; set; }
         public string Name { get; set; }
-
-        public bool Equals(Account other)
-        {
-            return Id == other?.Id;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return Equals(obj as Account);
-        }
-
-        public override int GetHashCode()
-        {
-            return Id;
-        }
     }
 }

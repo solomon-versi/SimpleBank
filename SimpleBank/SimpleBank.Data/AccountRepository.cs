@@ -4,16 +4,15 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Account = SimpleBank.Core.Models.Account;
-using Customer = SimpleBank.Core.Models.Customer;
 
 namespace SimpleBank.Data
 {
-    public class AccountsRepository : IRepository<Account, int>
+    public class AccountRepository : IRepository<Account, int>
     {
         private readonly SimpleBankDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public AccountsRepository(SimpleBankDbContext dbContext, IMapper mapper)
+        public AccountRepository(SimpleBankDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -27,19 +26,20 @@ namespace SimpleBank.Data
                 throw new Exception($"Account with Id {id} not found"); // TODO კონკრეტული Exception
 
             return _mapper.Map<Account>(account);
-
-            //return account.ToAccountModel();
         }
 
         public async Task<Account?> GetByIdOrDefault(int id)
         {
             var account = await _dbContext.Accounts.FindAsync(id);
-            return account?.ToAccountModel();
+            if (account is null)
+                return null;
+
+            return _mapper.Map<Account>(account);
         }
 
         public async Task<int> Add(Account entity)
         {
-            var account = entity.ToAccountEntity();
+            var account = _mapper.Map<Data.Models.Account>(entity);
             var result = _dbContext.Accounts.Add(account);
             await _dbContext.SaveChangesAsync();
             return result.Entity.Id;
@@ -47,7 +47,7 @@ namespace SimpleBank.Data
 
         public async Task<bool> Update(Account entity)
         {
-            var account = entity.ToAccountEntity();
+            var account = _mapper.Map<Data.Models.Account>(entity);
             _dbContext.Accounts.Update(account);
             return await _dbContext.SaveChangesAsync() != 0;
         }
@@ -59,27 +59,4 @@ namespace SimpleBank.Data
             return await _dbContext.SaveChangesAsync() != 0;
         }
     }
-
-    //public class CustomerRepository : IRepository<Customer, int>
-    //{
-    //    public async Task<Customer> GetById(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public async Task<int> Add(Customer entity)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public async Task<bool> Update(Customer entity)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public async Task<bool> Delete(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 }

@@ -24,24 +24,4 @@ namespace SimpleBank.Data.Models
     }
 
 #nullable enable
-
-    public static class AccountExt
-    {
-        public static Core.Models.Account ToAccountModel(this Account self) => new Core.Models.Account(self.Id)
-        {
-            Balance = new Money(self.Currency, self.Balance),
-            CustomerId = self.CustomerId,
-            Name = self.Name,
-            Iban = self.Iban
-        };
-
-        public static Account ToAccountEntity(this Core.Models.Account self) => new Account
-        {
-            Iban = self.Iban,
-            Balance = self.Balance.Amount,
-            Currency = self.Balance.Currency,
-            CustomerId = self.CustomerId,
-            Name = self.Name,
-        };
-    }
 }

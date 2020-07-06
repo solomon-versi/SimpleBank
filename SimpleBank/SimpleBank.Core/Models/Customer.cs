@@ -6,7 +6,7 @@ using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Models
 {
-    public sealed class Customer : IDomainObject<int>, IEquatable<Customer>
+    public sealed class Customer : IDomainObject<int>
     {
         public Customer(int id)
         {
@@ -19,20 +19,5 @@ namespace SimpleBank.Core.Models
         public string PhoneNumber { get; set; }
         public MailAddress Email { get; set; }
         public CustomerType Type { get; set; }
-
-        public bool Equals(Customer other)
-        {
-            return Id == other?.Id;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return Equals(obj as Customer);
-        }
-
-        public override int GetHashCode()
-        {
-            return Id;
-        }
     }
 }

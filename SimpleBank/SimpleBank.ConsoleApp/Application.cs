@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using SimpleBank.Core.Commands;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Services;
@@ -12,7 +15,7 @@ using Entity = SimpleBank.Data.Models;
 
 namespace SimpleBank.ConsoleApp
 {
-    public class Application
+    public class Application : IHostedService
     {
         private readonly AccountService _accountService;
         private readonly IOperationService _operationService;
@@ -25,29 +28,6 @@ namespace SimpleBank.ConsoleApp
         public Application(AccountService accountService)
         {
             _accountService = accountService;
-        }
-
-        public void Run()
-        {
-            while (true)
-            {
-                Console.WriteLine("For Debit Operation enter - [d]");
-                Console.WriteLine("For Credit Operation enter - [c]");
-                var command = Console.ReadLine();
-
-                var account = _accountService.GetAccount().GetAwaiter().GetResult();
-
-                switch (CreateCommand(command))
-                {
-                    case DebitByAccountId debitByAccountId:
-                        _operationService.Debit(debitByAccountId);
-                        break;
-
-                    case CreditByAccountId creditByAccountId:
-                        _operationService.Credit(creditByAccountId);
-                        break;
-                }
-            }
         }
 
         private OperationCommand CreateCommand(string command)
@@ -72,6 +52,35 @@ namespace SimpleBank.ConsoleApp
         {
             Console.Write(message);
             return Console.ReadLine();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            while (true)
+            {
+                Console.WriteLine("For Debit Operation enter - [d]");
+                Console.WriteLine("For Credit Operation enter - [c]");
+                var command = Console.ReadLine();
+
+                var account = _accountService.GetAccount().GetAwaiter().GetResult();
+
+                switch (CreateCommand(command))
+                {
+                    case DebitByAccountId debitByAccountId:
+                        _operationService.Debit(debitByAccountId);
+                        break;
+
+                    case CreditByAccountId creditByAccountId:
+                        _operationService.Credit(creditByAccountId);
+                        break;
+                }
+            }
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            Console.WriteLine("Application Stopped");
+            return Task.CompletedTask;
         }
     }
 }
