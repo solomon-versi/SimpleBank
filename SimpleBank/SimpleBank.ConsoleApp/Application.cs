@@ -14,11 +14,17 @@ namespace SimpleBank.ConsoleApp
 {
     public class Application
     {
+        private readonly AccountService _accountService;
         private readonly IOperationService _operationService;
 
-        public Application(IOperationService operationService)
+        //public Application(IOperationService operationService)
+        //{
+        //    _operationService = operationService;
+        //}
+
+        public Application(AccountService accountService)
         {
-            _operationService = operationService;
+            _accountService = accountService;
         }
 
         public void Run()
@@ -29,15 +35,7 @@ namespace SimpleBank.ConsoleApp
                 Console.WriteLine("For Credit Operation enter - [c]");
                 var command = Console.ReadLine();
 
-                var dbContext = new SimpleBankDbContext();
-                dbContext.Customers.Add(new Entity.Customer
-                {
-                    Name = "დავით მარგველაშვილი",
-                    Type = CustomerType.Individual,
-                    IdentityNumber = "01009052245",
-                    Email = "Davit@gmail.com",
-                    PhoneNumber = "+995557117844"
-                });
+                var account = _accountService.GetAccount().GetAwaiter().GetResult();
 
                 switch (CreateCommand(command))
                 {

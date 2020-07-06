@@ -6,6 +6,8 @@ using SimpleBank.Core.Models;
 
 namespace SimpleBank.Data.Models
 {
+#nullable disable
+
     public class Account
     {
         public int Id { get; set; }
@@ -20,6 +22,8 @@ namespace SimpleBank.Data.Models
         public string Name { get; set; }
         public Customer Customer { get; set; }
     }
+
+#nullable enable
 
     public static class AccountExt
     {
@@ -37,7 +41,7 @@ namespace SimpleBank.Data.Models
             Balance = self.Balance.Amount,
             Currency = self.Balance.Currency,
             CustomerId = self.CustomerId,
-            Name = self.Name
+            Name = self.Name,
         };
     }
 }

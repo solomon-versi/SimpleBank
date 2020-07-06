@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SimpleBank.Core.Models;
+﻿using SimpleBank.Core.Models;
+
+#nullable disable
 
 namespace SimpleBank.Data.Models
 {
@@ -13,3 +12,5 @@ namespace SimpleBank.Data.Models
         public decimal Value { get; set; }
     }
 }
+
+#nullable enable

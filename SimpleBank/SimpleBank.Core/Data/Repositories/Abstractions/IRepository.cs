@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Models.Abstractions;
 
 namespace SimpleBank.Core.Data.Repositories.Abstractions
 {
-    public interface IRepository<TObject, TId> where TObject : IDomainObject<TId>
+    public interface IRepository<TObject, TId> where TObject : class, IDomainObject<TId>
     {
-        TObject GetById(TId id);
+        Task<TObject> GetById(TId id);
 
-        TId Add(TObject entity);
+        Task<TObject?> GetByIdOrDefault(TId id);
 
-        bool Update(TObject entity);
+        Task<TId> Add(TObject entity);
 
-        bool Delete(TId id);
+        Task<bool> Update(TObject entity);
+
+        Task<bool> Delete(TId id);
     }
 }

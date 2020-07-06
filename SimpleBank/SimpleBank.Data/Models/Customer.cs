@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using SimpleBank.Core.Models;
 
+#nullable disable
+
 namespace SimpleBank.Data.Models
 {
     public class Customer
@@ -23,3 +25,5 @@ namespace SimpleBank.Data.Models
         public CustomerType Type { get; set; }
     }
 }
+
+#nullable enable
