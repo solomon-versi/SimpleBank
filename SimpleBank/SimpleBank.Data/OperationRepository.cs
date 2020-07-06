@@ -16,12 +16,7 @@ namespace SimpleBank.Data
 
         public async Task<Operation> GetById(long id)
         {
-            var operation = await _dbContext.Operations.FindAsync(id);
-
-            if (operation is null)
-                throw new Exception($"Operation with Id {id} not found"); // TODO კონკრეტული Exception
-
-            return operation.ToOperatonModel();
+            throw new NotImplementedException();
         }
 
         public Task<Operation?> GetByIdOrDefault(long id)
