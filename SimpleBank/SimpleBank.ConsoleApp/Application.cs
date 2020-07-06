@@ -17,17 +17,11 @@ namespace SimpleBank.ConsoleApp
 {
     public class Application : IHostedService
     {
-        private readonly AccountService _accountService;
         private readonly IOperationService _operationService;
 
-        //public Application(IOperationService operationService)
-        //{
-        //    _operationService = operationService;
-        //}
-
-        public Application(AccountService accountService)
+        public Application(IOperationService operationService)
         {
-            _accountService = accountService;
+            _operationService = operationService;
         }
 
         private OperationCommand CreateCommand(string command)
@@ -61,8 +55,6 @@ namespace SimpleBank.ConsoleApp
                 Console.WriteLine("For Debit Operation enter - [d]");
                 Console.WriteLine("For Credit Operation enter - [c]");
                 var command = Console.ReadLine();
-
-                var account = _accountService.GetAccount().GetAwaiter().GetResult();
 
                 switch (CreateCommand(command))
                 {

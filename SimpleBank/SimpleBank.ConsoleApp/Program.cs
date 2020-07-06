@@ -7,6 +7,7 @@ using SimpleBank.Core.Utils;
 using SimpleBank.Data;
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SimpleBank.Data.Maps;
 
 namespace SimpleBank.ConsoleApp
@@ -26,13 +27,14 @@ namespace SimpleBank.ConsoleApp
 
         public static IHostBuilder CreateHostBuilder(string[] args) => Host
                 .CreateDefaultBuilder(args)
-                .ConfigureServices(services => services.AddHostedService<Application>()
-                    .AddScoped<IOperationService, OperationService>()
+                .ConfigureServices(services => services
+                    .AddHostedService<Application>()
                     .AddSingleton<SimpleBankDbContext>()
+                    .AddScoped<IOperationService, OperationService>()
                     .AddScoped<AccountService>()
                     .AddScoped<IRepository<Account, int>, AccountRepository>()
                     .AddScoped<IRepository<Operation, long>, OperationRepository>()
-                    .AddScoped<IRepository<Customer, int>, CustomerRepositoy>()
+                    .AddScoped<IRepository<Customer, int>, CustomerRepository>()
                     .AddSingleton<IDateTimeProvider, DateTimeProvider>()
                     .AddAutoMapper(typeof(MappingProfile)));
     }
