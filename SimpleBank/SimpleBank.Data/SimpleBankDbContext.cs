@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SimpleBank.Data.Models;
+
+#nullable disable
 
 namespace SimpleBank.Data
 {
@@ -13,9 +12,10 @@ namespace SimpleBank.Data
         public DbSet<Operation> Operations { get; set; }
         public DbSet<CurrencyRate> CurrencyRates { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SimpleBankDbContext(DbContextOptions options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDb; Initial Catalog = SimpleBank");
         }
     }
 }
+
+#nullable enable

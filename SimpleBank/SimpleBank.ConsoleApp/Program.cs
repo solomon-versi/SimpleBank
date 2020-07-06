@@ -29,7 +29,8 @@ namespace SimpleBank.ConsoleApp
                 .CreateDefaultBuilder(args)
                 .ConfigureServices(services => services
                     .AddHostedService<Application>()
-                    .AddSingleton<SimpleBankDbContext>()
+                    .AddDbContext<SimpleBankDbContext>(options => options
+                        .UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDb; Initial Catalog = SimpleBank"))
                     .AddScoped<IOperationService, OperationService>()
                     .AddScoped<AccountService>()
                     .AddScoped<IRepository<Account, int>, AccountRepository>()
