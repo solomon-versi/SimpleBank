@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleBank.Core\SimpleBank.Core.csproj" />
-    <ProjectReference Include="..\SimpleBank.Data\SimpleBank.Data.csproj" />
   </ItemGroup>
 
 </Project>

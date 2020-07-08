@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Nullable>Enable</Nullable>
-    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,4 +13,5 @@
     <None Remove="Customers.csv" />
     <None Remove="Operations.csv" />
   </ItemGroup>
+
 </Project>
