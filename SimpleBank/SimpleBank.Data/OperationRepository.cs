@@ -18,7 +18,7 @@ namespace SimpleBank.Data
             _mapper = mapper;
         }
 
-        public async Task<Operation> GetById(long id)
+        public async Task<Operation> GetByIdAsync(long id)
         {
             var operation = await _dbContext.Operations.FindAsync(id);
 
@@ -28,7 +28,7 @@ namespace SimpleBank.Data
             return _mapper.Map<Operation>(operation);
         }
 
-        public async Task<Operation?> GetByIdOrDefault(long id)
+        public async Task<Operation?> GetByIdOrDefaultAsync(long id)
         {
             var operation = await _dbContext.Operations.FindAsync(id);
 
@@ -38,7 +38,7 @@ namespace SimpleBank.Data
             return _mapper.Map<Operation>(operation);
         }
 
-        public async Task<long> Add(Operation entity)
+        public async Task<long> AddAsync(Operation entity)
         {
             var operation = _mapper.Map<Data.Models.Operation>(entity);
             var result = _dbContext.Operations.Add(operation);
@@ -46,14 +46,14 @@ namespace SimpleBank.Data
             return result.Entity.Id;
         }
 
-        public async Task<bool> Update(Operation entity)
+        public async Task<bool> UpdateAsync(Operation entity)
         {
             var operation = _mapper.Map<Data.Models.Operation>(entity);
             _dbContext.Operations.Update(operation);
             return await _dbContext.SaveChangesAsync() != 0;
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<bool> DeleteAsync(long id)
         {
             var operation = _dbContext.Operations.Find(id);
             _dbContext.Operations.Remove(operation);

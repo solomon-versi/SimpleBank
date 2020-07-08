@@ -9,14 +9,14 @@ namespace SimpleBank.Core.Data.Repositories.Abstractions
 {
     public interface IRepository<TObject, TId> where TObject : class, IDomainObject<TId>
     {
-        Task<TObject> GetById(TId id);
+        Task<TObject> GetByIdAsync(TId id);
 
-        Task<TObject?> GetByIdOrDefault(TId id);
+        Task<TObject?> GetByIdOrDefaultAsync(TId id);
 
-        Task<TId> Add(TObject entity);
+        Task<TId> AddAsync(TObject entity);
 
-        Task<bool> Update(TObject entity);
+        Task<bool> UpdateAsync(TObject entity);
 
-        Task<bool> Delete(TId id);
+        Task<bool> DeleteAsync(TId id);
     }
 }

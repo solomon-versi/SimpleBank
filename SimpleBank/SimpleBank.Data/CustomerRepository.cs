@@ -18,7 +18,7 @@ namespace SimpleBank.Data
             _mapper = mapper;
         }
 
-        public async Task<Customer> GetById(int id)
+        public async Task<Customer> GetByIdAsync(int id)
         {
             var customer = await _dbContext.Customers.FindAsync(id);
             if (customer is null)
@@ -27,7 +27,7 @@ namespace SimpleBank.Data
             return _mapper.Map<Customer>(customer);
         }
 
-        public async Task<Customer?> GetByIdOrDefault(int id)
+        public async Task<Customer?> GetByIdOrDefaultAsync(int id)
         {
             var customer = await _dbContext.Customers.FindAsync(id);
 
@@ -37,7 +37,7 @@ namespace SimpleBank.Data
             return _mapper.Map<Customer>(customer);
         }
 
-        public async Task<int> Add(Customer entity)
+        public async Task<int> AddAsync(Customer entity)
         {
             var customer = _mapper.Map<Data.Models.Customer>(entity);
             var result = await _dbContext.Customers.AddAsync(customer);
@@ -45,14 +45,14 @@ namespace SimpleBank.Data
             return result.Entity.Id;
         }
 
-        public async Task<bool> Update(Customer entity)
+        public async Task<bool> UpdateAsync(Customer entity)
         {
             var customer = _mapper.Map<Data.Models.Customer>(entity);
             _dbContext.Customers.Update(customer);
             return await _dbContext.SaveChangesAsync() != 0;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var customer = _dbContext.Customers.Find(id);
             _dbContext.Customers.Remove(customer);

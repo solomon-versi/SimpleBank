@@ -15,7 +15,7 @@ namespace SimpleBank.Core.Services
 
         public async Task<Account> GetAccount()
         {
-            var account = await _accountRepository.GetById(1);
+            var account = await _accountRepository.GetByIdAsync(1);
             return account;
         }
     }
