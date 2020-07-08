@@ -1,18 +1,13 @@
-﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using SimpleBank.Core.Models.Abstractions;
-using SimpleBank.Core.Services;
+﻿using SimpleBank.Core.Models;
+using System;
 
-namespace SimpleBank.Core.Models
+#nullable disable
+
+namespace SimpleBank.Data.Models
 {
-    public sealed class Operation : IDomainObject<long>
+    public class Operation
     {
-        public Operation(long id)
-        {
-            Id = id;
-        }
-
-        public long Id { get; }
+        public long Id { get; set; }
         public OperationType Type { get; set; }
         public CurrencyCode Currency { get; set; }
         public decimal Amount { get; set; }
@@ -20,5 +15,10 @@ namespace SimpleBank.Core.Models
         public int CustomerId { get; set; }
         public DateTime HappenedAt { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public Customer Customer { get; set; }
+        public Account Account { get; set; }
     }
 }
+
+#nullable enable
