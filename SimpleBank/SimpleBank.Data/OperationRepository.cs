@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using AutoMapper;
 using SimpleBank.Core.Data.Repositories.Abstractions;
+using SimpleBank.Core.Exceptions;
 using SimpleBank.Core.Models;
 
 namespace SimpleBank.Data
@@ -23,7 +24,7 @@ namespace SimpleBank.Data
             var operation = await _dbContext.Operations.FindAsync(id);
 
             if (operation is null)
-                throw new Exception($"Operation with Id {id} not found"); // TODO კონკრეტული Exception
+                throw new NotFoundException<Operation>(id);
 
             return _mapper.Map<Operation>(operation);
         }

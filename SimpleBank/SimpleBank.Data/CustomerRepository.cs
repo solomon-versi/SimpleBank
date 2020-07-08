@@ -3,6 +3,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using AutoMapper;
 using SimpleBank.Core.Data.Repositories.Abstractions;
+using SimpleBank.Core.Exceptions;
 using SimpleBank.Core.Models;
 
 namespace SimpleBank.Data
@@ -22,7 +23,7 @@ namespace SimpleBank.Data
         {
             var customer = await _dbContext.Customers.FindAsync(id);
             if (customer is null)
-                throw new Exception($"Customer with Id {id} not found"); // TODO კონკრეტული Exception
+                throw new NotFoundException<Customer>(id);
 
             return _mapper.Map<Customer>(customer);
         }

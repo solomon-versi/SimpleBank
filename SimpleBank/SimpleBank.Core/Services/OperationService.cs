@@ -3,6 +3,7 @@ using SimpleBank.Core.Data.Repositories.Abstractions;
 using SimpleBank.Core.Exceptions;
 using SimpleBank.Core.Models;
 using System;
+using System.Threading.Tasks;
 using SimpleBank.Core.Utils;
 
 namespace SimpleBank.Core.Services
@@ -26,38 +27,33 @@ namespace SimpleBank.Core.Services
         /// <summary>
         /// ანგარიშიდან თანხის ჩამოჭრის ოპერაცია
         /// </summary>
-        public long Debit(DebitByAccountId command)
+        public async Task<long> Debit(DebitByAccountId command)
         {
-            //var account = _accountRepo.GetById(command.AccountId);
+            var account = await _accountRepo.GetByIdAsync(command.AccountId);
 
-            //if (account == null)
-            //    throw new AccountNotFoundException(command.AccountId);
+            var operationAmount = new Money(command.Currency, command.Amount);
+            if (account.Balance < operationAmount)
+                throw new InsufficientFundsException(account.Id);
 
-            //var operationAmount = new Money(command.Currency, command.Amount);
-            //if (account.Balance < operationAmount)
-            //    throw new InsufficientFundsException(account.Id);
+            account.Balance -= operationAmount;
+            await _accountRepo.UpdateAsync(account);
 
-            //account.Balance -= operationAmount;
-            //_accountRepo.Update(account);
-
-            //return _operationRepo.Add(new Operation(-1)
-            //{
-            //    AccountId = account.Id,
-            //    Amount = operationAmount.Amount,
-            //    Currency = operationAmount.Currency,
-            //    CustomerId = account.CustomerId,
-            //    Type = OperationType.Debit,
-            //    HappenedAt = command.HappenedAt,
-            //    CreatedAt = _dateTime.Now
-            //});
-
-            throw new NotImplementedException();
+            return await _operationRepo.AddAsync(new Operation(-1)
+            {
+                AccountId = account.Id,
+                Amount = operationAmount.Amount,
+                Currency = operationAmount.Currency,
+                CustomerId = account.CustomerId,
+                Type = OperationType.Debit,
+                HappenedAt = command.HappenedAt,
+                CreatedAt = _dateTime.Now
+            });
         }
 
         /// <summary>
         /// ანგარიშზე თანხის ჩარიხვის ოპერაცია
         /// </summary>
-        public void Credit(CreditByAccountId command)
+        public Task<long> Credit(CreditByAccountId command)
         {
             throw new NotImplementedException("თქვენ თვითონ დაწერეთ!!! :)");
         }

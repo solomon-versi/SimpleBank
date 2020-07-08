@@ -1,4 +1,5 @@
-﻿using SimpleBank.Core.Commands;
+﻿using System.Threading.Tasks;
+using SimpleBank.Core.Commands;
 
 namespace SimpleBank.Core.Services
 {
@@ -7,11 +8,11 @@ namespace SimpleBank.Core.Services
         /// <summary>
         /// ანგარიშიდან თანხის ჩამოჭრის ოპერაცია
         /// </summary>
-        long Debit(DebitByAccountId command);
+        Task<long> Debit(DebitByAccountId command);
 
         /// <summary>
         /// ანგარიშზე თანხის ჩარიხვის ოპერაცია
         /// </summary>
-        void Credit(CreditByAccountId command);
+        Task<long> Credit(CreditByAccountId command);
     }
 }

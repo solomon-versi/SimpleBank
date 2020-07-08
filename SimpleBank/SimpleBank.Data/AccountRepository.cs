@@ -3,6 +3,7 @@ using SimpleBank.Data.Models;
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using SimpleBank.Core.Exceptions;
 using Account = SimpleBank.Core.Models.Account;
 
 namespace SimpleBank.Data
@@ -23,7 +24,7 @@ namespace SimpleBank.Data
             var account = await _dbContext.Accounts.FindAsync(id);
 
             if (account is null)
-                throw new Exception($"Account with Id {id} not found"); // TODO კონკრეტული Exception
+                throw new NotFoundException<Account>(id);
 
             return _mapper.Map<Account>(account);
         }
