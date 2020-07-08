@@ -8,7 +8,10 @@ using SimpleBank.Data;
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using SimpleBank.Data.Maps;
+using Serilog.Sinks;
 
 namespace SimpleBank.ConsoleApp
 {
@@ -26,17 +29,21 @@ namespace SimpleBank.ConsoleApp
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) => Host
-                .CreateDefaultBuilder(args)
-                .ConfigureServices(services => services
-                    .AddHostedService<Application>()
-                    .AddDbContext<SimpleBankDbContext>(options => options
-                        .UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDb; Initial Catalog = SimpleBank"))
-                    .AddScoped<IOperationService, OperationService>()
-                    .AddScoped<AccountService>()
-                    .AddScoped<IRepository<Account, int>, AccountRepository>()
-                    .AddScoped<IRepository<Operation, long>, OperationRepository>()
-                    .AddScoped<IRepository<Customer, int>, CustomerRepository>()
-                    .AddSingleton<IDateTimeProvider, DateTimeProvider>()
-                    .AddAutoMapper(typeof(MappingProfile)));
+            .CreateDefaultBuilder(args)
+            .ConfigureServices(services => services
+                .AddHostedService<Application>()
+                .AddDbContext<SimpleBankDbContext>(options => options
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                    .EnableSensitiveDataLogging()
+                    .UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDb; Initial Catalog = SimpleBank"))
+                .AddScoped<IOperationService, OperationService>()
+                .AddScoped<IRepository<Account, int>, AccountRepository>()
+                .AddScoped<IRepository<Operation, long>, OperationRepository>()
+                .AddScoped<IRepository<Customer, int>, CustomerRepository>()
+                .AddSingleton<IDateTimeProvider, DateTimeProvider>()
+                .AddAutoMapper(typeof(MappingProfile)))
+            .UseSerilog((_, logger) => logger
+                .WriteTo.Console()
+                .WriteTo.File("logs"));
     }
 }

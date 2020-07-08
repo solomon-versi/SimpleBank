@@ -2,7 +2,7 @@
 {
     public enum OperationType : byte
     {
-        Debit = 1,
-        Credit = 2,
+        Withdraw = 1,
+        Deposit = 2,
     }
 }

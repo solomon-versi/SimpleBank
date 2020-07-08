@@ -27,7 +27,7 @@ namespace SimpleBank.Core.Services
         /// <summary>
         /// ანგარიშიდან თანხის ჩამოჭრის ოპერაცია
         /// </summary>
-        public async Task<long> Debit(DebitByAccountId command)
+        public async Task<long> WithdrawAsync(WithdrawByAccountId command)
         {
             var account = await _accountRepo.GetByIdAsync(command.AccountId);
 
@@ -38,13 +38,13 @@ namespace SimpleBank.Core.Services
             account.Balance -= operationAmount;
             await _accountRepo.UpdateAsync(account);
 
-            return await _operationRepo.AddAsync(new Operation(-1)
+            return await _operationRepo.AddAsync(new Operation(0)
             {
                 AccountId = account.Id,
                 Amount = operationAmount.Amount,
                 Currency = operationAmount.Currency,
                 CustomerId = account.CustomerId,
-                Type = OperationType.Debit,
+                Type = OperationType.Withdraw,
                 HappenedAt = command.HappenedAt,
                 CreatedAt = _dateTime.Now
             });
@@ -53,9 +53,24 @@ namespace SimpleBank.Core.Services
         /// <summary>
         /// ანგარიშზე თანხის ჩარიხვის ოპერაცია
         /// </summary>
-        public Task<long> Credit(CreditByAccountId command)
+        public async Task<long> Deposit(DepositByAccountId command)
         {
-            throw new NotImplementedException("თქვენ თვითონ დაწერეთ!!! :)");
+            var account = await _accountRepo.GetByIdAsync(command.AccountId);
+
+            var deposit = new Money(command.Currency, command.Amount);
+            account.Balance += deposit;
+
+            await _accountRepo.UpdateAsync(account);
+            return await _operationRepo.AddAsync(new Operation(0)
+            {
+                AccountId = account.Id,
+                CustomerId = account.CustomerId,
+                Amount = deposit.Amount,
+                Currency = deposit.Currency,
+                Type = OperationType.Deposit,
+                HappenedAt = command.HappenedAt,
+                CreatedAt = _dateTime.Now
+            });
         }
     }
 }

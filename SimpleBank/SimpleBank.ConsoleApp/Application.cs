@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using SimpleBank.Core.Commands;
 using SimpleBank.Core.Models;
 using SimpleBank.Core.Services;
 using SimpleBank.Core.Utils;
 using SimpleBank.Data;
 using Entity = SimpleBank.Data.Models;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SimpleBank.ConsoleApp
 {
@@ -28,9 +30,9 @@ namespace SimpleBank.ConsoleApp
         {
             OperationCommand operationCommand;
             if (command == "d")
-                operationCommand = new DebitByAccountId();
+                operationCommand = new WithdrawByAccountId();
             else if (command == "c")
-                operationCommand = new CreditByAccountId();
+                operationCommand = new DepositByAccountId();
             else
                 throw new ArgumentOutOfRangeException(nameof(command));
 
@@ -48,23 +50,30 @@ namespace SimpleBank.ConsoleApp
             return Console.ReadLine();
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             while (true)
             {
-                Console.WriteLine("For Debit Operation enter - [d]");
-                Console.WriteLine("For Credit Operation enter - [c]");
-                var command = Console.ReadLine();
-
-                switch (CreateCommand(command))
+                try
                 {
-                    case DebitByAccountId debitByAccountId:
-                        _operationService.Debit(debitByAccountId);
-                        break;
+                    Console.WriteLine("For Debit Operation enter - [d]");
+                    Console.WriteLine("For Credit Operation enter - [c]");
+                    var command = Console.ReadLine();
 
-                    case CreditByAccountId creditByAccountId:
-                        _operationService.Credit(creditByAccountId);
-                        break;
+                    switch (CreateCommand(command))
+                    {
+                        case WithdrawByAccountId debitByAccountId:
+                            await _operationService.WithdrawAsync(debitByAccountId);
+                            break;
+
+                        case DepositByAccountId creditByAccountId:
+                            await _operationService.Deposit(creditByAccountId);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Error in SimpleBank.ConsoleApp");
                 }
             }
         }

@@ -19,20 +19,6 @@ namespace SimpleBank.Data.Models
         public Customer Customer { get; set; }
         public Account Account { get; set; }
     }
-
-    public static class OperationExt
-    {
-        public static Core.Models.Operation ToAccountModel(this Operation self) => new Core.Models.Operation(self.Id)
-        {
-            Amount = self.Amount,
-            Currency = self.Currency,
-            CustomerId = self.CustomerId
-        };
-
-        public static Operation ToAccountEntity(this Core.Models.Operation self) => new Operation()
-        {
-        };
-    }
 }
 
 #nullable enable

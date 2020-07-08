@@ -5,7 +5,7 @@ using SimpleBank.Core.Services;
 
 namespace SimpleBank.Core.Models
 {
-    public sealed class Operation : IDomainObject<long>, IEquatable<Operation>
+    public sealed class Operation : IDomainObject<long>
     {
         public Operation(long id)
         {
@@ -20,23 +20,5 @@ namespace SimpleBank.Core.Models
         public int CustomerId { get; set; }
         public DateTime HappenedAt { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public bool Equals(Operation other)
-        {
-            return Id == other?.Id;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return Equals(obj as Operation);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (int)Id;
-            }
-        }
     }
 }

@@ -32,7 +32,7 @@ namespace SimpleBank.Core.Models
 
         public static Money operator +(Money left, Money right)
         {
-            var convertedRight = Fx.Exchange(right.Amount, right.Currency, left.Currency);
+            var convertedRight = Fx.Sell(right.Currency, right.Amount, left.Currency);
             return new Money(left.Currency, left.Amount + convertedRight.Amount);
         }
 
@@ -70,7 +70,7 @@ namespace SimpleBank.Core.Models
 
         public static Money operator -(Money left, Money right)
         {
-            var convertedRight = Fx.Exchange(right.Amount, right.Currency, left.Currency);
+            var convertedRight = Fx.Buy(right.Currency, right.Amount, left.Currency);
             return new Money(left.Currency, left.Amount - convertedRight.Amount);
         }
 

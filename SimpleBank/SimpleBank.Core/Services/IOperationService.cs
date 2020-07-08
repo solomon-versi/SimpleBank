@@ -8,11 +8,11 @@ namespace SimpleBank.Core.Services
         /// <summary>
         /// ანგარიშიდან თანხის ჩამოჭრის ოპერაცია
         /// </summary>
-        Task<long> Debit(DebitByAccountId command);
+        Task<long> WithdrawAsync(WithdrawByAccountId command);
 
         /// <summary>
         /// ანგარიშზე თანხის ჩარიხვის ოპერაცია
         /// </summary>
-        Task<long> Credit(CreditByAccountId command);
+        Task<long> Deposit(DepositByAccountId command);
     }
 }
